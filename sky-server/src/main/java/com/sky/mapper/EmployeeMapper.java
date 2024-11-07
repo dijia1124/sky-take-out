@@ -34,4 +34,10 @@ public interface EmployeeMapper {
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * start or stop employee
+     * @param employee
+     */
+    void update(Employee employee);
+
 }
