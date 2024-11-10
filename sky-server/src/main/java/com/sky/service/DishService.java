@@ -1,11 +1,18 @@
 package com.sky.service;
 
 import com.sky.dto.DishDTO;
+import com.sky.result.PageResult;
 
 public interface DishService {
     /**
      * Add new dish
      * @param dishDTO
      */
-    public void saveWithFlavor(DishDTO dishDTO);
+    void saveWithFlavor(DishDTO dishDTO);
+
+    /**
+     * Dish page query
+     * @param dishPageQueryDTO
+     * @return
+     */
 }
