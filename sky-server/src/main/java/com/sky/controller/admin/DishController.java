@@ -139,4 +139,19 @@ public class DishController {
     }
     // todo: missing status on/off method
 
+    /**
+     * start or stop dish
+     * @param status
+     * @param id
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("start or stop dish")
+    public Result startOrStop(@PathVariable Integer status, Long id){
+        log.info("Start or stop dish: status:{}, id:{}", status, id);
+        dishService.startOrStop(status, id);
+
+        // clear redis cache
+        clearRedisCache("dish_*");
+        return Result.success();
+    }
 }
