@@ -39,7 +39,7 @@ public class DishController {
 
     /**
      * Dish page query
-     * @param dishQueryDTO
+     * @param dishPageQueryDTO
      * @return
      */
     @GetMapping("/page")
@@ -100,7 +100,7 @@ public class DishController {
     @GetMapping("/list")
     @ApiOperation("Get dish by category id")
     public Result<List<DishVO>> list(Long categoryId){
-        log.info("Get dish by category id：{}", categoryId);
+        log.info("Get dish list by cat id：{}", categoryId);
 
         List<DishVO> dishVOList = dishService.listByCategoryId(categoryId);
         return Result.success(dishVOList);
