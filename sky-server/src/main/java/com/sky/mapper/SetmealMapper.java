@@ -36,4 +36,19 @@ public interface SetmealMapper {
      * @return
      */
     Page<DishVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     * get setmeal by id
+     * @param id
+     * @return
+     */
+    @Select("select * from setmeal where id = #{id}")
+    Setmeal getById(Long id);
+
+    /**
+     * update setmeal by id
+     * @param id
+     */
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }

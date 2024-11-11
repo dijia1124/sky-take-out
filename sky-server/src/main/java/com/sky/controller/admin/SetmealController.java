@@ -9,6 +9,7 @@ import com.sky.result.Result;
 import com.sky.service.DishService;
 import com.sky.service.SetmealService;
 import com.sky.vo.DishVO;
+import com.sky.vo.SetmealVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -68,30 +69,30 @@ public class SetmealController {
 //        return Result.success();
 //    }
 //
-//    /**
-//     * Get dish by id
-//     * @param id
-//     * @return
-//     */
-//    @GetMapping("/{id}")
-//    @ApiOperation("Get dish by id")
-//    public Result<DishVO> get(@PathVariable Long id){
-//        log.info("Get dish by id：{}", id);
-//        DishVO dishVO = dishService.getByIdWithFlavor(id);
-//        return Result.success(dishVO);
-//    }
-//
-//    /**
-//     * Update dish
-//     * @param dishDTO
-//     * @return
-//     */
-//    @PutMapping
-//    @ApiOperation("Update dish")
-//    public Result update(@RequestBody DishDTO dishDTO){
-//        log.info("Update dish：{}", dishDTO);
-//
-//        dishService.updateWithFlavor(dishDTO);
-//        return Result.success();
-//    }
+    /**
+     * Get setmeal by id
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("Get setmeal by id")
+    public Result<SetmealVO> get(@PathVariable Long id){
+        log.info("Get setmeal by id：{}", id);
+        SetmealVO setmealVO = setmealService.getByIdWithDish(id);
+        return Result.success(setmealVO);
+    }
+
+    /**
+     * Update dish
+     * @param dishDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("Update setmeal")
+    public Result update(@RequestBody SetmealDTO setmealDTO){
+        log.info("Update setmeal：{}", setmealDTO);
+
+        setmealService.updateWithDish(setmealDTO);
+        return Result.success();
+    }
 }
