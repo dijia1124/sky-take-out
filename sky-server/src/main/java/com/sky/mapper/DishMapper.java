@@ -32,7 +32,7 @@ public interface DishMapper {
 
     /**
      * Dish page query
-     * @param dish
+     * @param dishPageQueryDTO
      * @return
      */
     Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);

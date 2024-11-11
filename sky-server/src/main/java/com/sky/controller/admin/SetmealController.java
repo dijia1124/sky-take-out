@@ -3,6 +3,7 @@ package com.sky.controller.admin;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.dto.SetmealDTO;
+import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
@@ -39,19 +40,19 @@ public class SetmealController {
         return Result.success();
     }
 
-//    /**
-//     * Setmeal page query
-//     * @param dishQueryDTO
-//     * @return
-//     */
-//    @GetMapping("/page")
-//    @ApiOperation("Dish page query")
-//    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){
-//        log.info("Dish page query：{}", dishPageQueryDTO);
-//
-//        PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
-//        return Result.success(pageResult);
-//    }
+    /**
+     * Setmeal page query
+     * @param setmealPageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation("Setmeal page query")
+    public Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO){
+        log.info("Setmeal page query：{}", setmealPageQueryDTO);
+
+        PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
+        return Result.success(pageResult);
+    }
 //
 //    /**
 //     * Delete dish
