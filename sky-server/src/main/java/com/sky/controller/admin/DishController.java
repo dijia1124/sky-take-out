@@ -91,4 +91,19 @@ public class DishController {
         dishService.updateWithFlavor(dishDTO);
         return Result.success();
     }
+
+    /**
+     * Get dish by category id
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("Get dish by category id")
+    public Result<List<DishVO>> list(Long categoryId){
+        log.info("Get dish by category id：{}", categoryId);
+
+        List<DishVO> dishVOList = dishService.listByCategoryId(categoryId);
+        return Result.success(dishVOList);
+    }
+
 }
