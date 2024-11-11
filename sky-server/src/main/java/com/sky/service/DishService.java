@@ -48,4 +48,12 @@ public interface DishService {
      * @return
      */
     List<DishVO> listByCategoryId(Long categoryId);
+
+    /**
+     * Start of stop dish
+     * @param status
+     * @param id
+     * @return
+     */
+    Result startOrStop(Integer status, Long id);
 }

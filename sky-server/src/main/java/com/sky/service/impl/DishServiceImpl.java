@@ -151,4 +151,20 @@ public class DishServiceImpl implements DishService {
     public List<DishVO> listByCategoryId(Long categoryId) {
         return dishMapper.listByCategoryId(categoryId);
     }
+
+    /**
+     * Start or stop dish
+     * @param status
+     * @param id
+     * @return
+     */
+    public Result startOrStop(Integer status, Long id) {
+        Dish dish = Dish.builder()
+                .status(status)
+                .id(id)
+                .build();
+
+        dishMapper.update(dish);
+        return Result.success();
+    }
 }
