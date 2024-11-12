@@ -57,4 +57,17 @@ public class ShoppingCartController {
         shoppingCartService.deleteShoppingCart();
         return Result.success();
     }
+
+    /**
+     * subtract shoppingcart
+     * @param shoppingCartDTO
+     */
+    @PostMapping("/sub")
+    @ApiOperation("Subtract shopping cart")
+    public Result<String> sub(@RequestBody ShoppingCartDTO shoppingCartDTO){
+        log.info("Subtract shopping cart：{}", shoppingCartDTO);
+
+        shoppingCartService.subtractShoppingCart(shoppingCartDTO);
+        return Result.success();
+    }
 }

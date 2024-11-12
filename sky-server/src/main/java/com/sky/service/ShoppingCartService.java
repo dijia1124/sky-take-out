@@ -22,4 +22,10 @@ public interface ShoppingCartService {
      * Delete shopping cart
      */
     void deleteShoppingCart();
+
+    /**
+     * Subtract shopping cart
+     * @param shoppingCartDTO
+     */
+    void subtractShoppingCart(ShoppingCartDTO shoppingCartDTO);
 }
