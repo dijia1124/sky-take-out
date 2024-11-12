@@ -45,4 +45,16 @@ public class ShoppingCartController {
     public Result list(){
         return Result.success(shoppingCartService.listShoppingCart());
     }
+
+    /**
+     * Delete shopping cart
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/clean")
+    @ApiOperation("Clean shopping cart")
+    public Result delete(Long id){
+        shoppingCartService.deleteShoppingCart();
+        return Result.success();
+    }
 }

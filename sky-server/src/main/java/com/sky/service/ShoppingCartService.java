@@ -17,4 +17,9 @@ public interface ShoppingCartService {
      * @return
      */
     List<ShoppingCart> listShoppingCart();
+
+    /**
+     * Delete shopping cart
+     */
+    void deleteShoppingCart();
 }

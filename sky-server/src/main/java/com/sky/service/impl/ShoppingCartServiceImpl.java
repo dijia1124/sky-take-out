@@ -81,4 +81,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                                         .userId(BaseContext.getCurrentId())
                                         .build());
     }
+
+    /**
+     * Delete shopping cart
+     * @param id
+     */
+    public void deleteShoppingCart() {
+        shoppingCartMapper.deleteByUserId(BaseContext.getCurrentId());
+    }
 }
