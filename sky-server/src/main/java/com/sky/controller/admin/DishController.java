@@ -136,8 +136,8 @@ public class DishController {
      */
     private void clearRedisCache(String pattern) {
         Set keys = redisTemplate.keys(pattern);
+        redisTemplate.delete(keys);
     }
-    // todo: missing status on/off method
 
     /**
      * start or stop dish
