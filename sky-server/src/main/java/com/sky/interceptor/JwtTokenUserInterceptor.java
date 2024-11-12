@@ -35,6 +35,7 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
      * @throws Exception
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.info("prehandling!");
         // determine whether the current interception is a method of the Controller or other resources
         if (!(handler instanceof HandlerMethod)) {
             // if the current interception is not a dynamic method, release it directly
@@ -43,6 +44,7 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
 
         // 1. get token from request header
         String token = request.getHeader(jwtProperties.getUserTokenName());
+        log.info("token:{}", token);
 
         // 2. verify token
         try {

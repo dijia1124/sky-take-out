@@ -35,10 +35,12 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //判断当前拦截到的是Controller的方法还是其他资源
         if (!(handler instanceof HandlerMethod)) {
+
+            log.info("yo this is not instanceof handlermethod in admin end");
             //当前拦截到的不是动态方法，直接放行
             return true;
         }
-
+        log.info("prehandling! in admin end");
         //1、从请求头中获取令牌
         String token = request.getHeader(jwtProperties.getAdminTokenName());
 
