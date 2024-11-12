@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * WeChat login
-     * @param UserLoginDTO
+     * @param userLoginDTO
      * @return
      */
     public User wxLogin(UserLoginDTO userLoginDTO) {
