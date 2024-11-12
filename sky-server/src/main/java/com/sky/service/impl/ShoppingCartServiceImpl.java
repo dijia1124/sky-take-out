@@ -44,7 +44,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         if (shoppingCartList != null && shoppingCartList.size() == 1) {
             // if the current shopping cart already contains the dish, update the number of the dish
             shoppingCart = shoppingCartList.get(0);
-            shoppingCart.setNumber(shoppingCart.getNumber());
+            shoppingCart.setNumber(shoppingCart.getNumber() + 1);
             shoppingCartMapper.updateNumbersById(shoppingCart);
         }
         else {
