@@ -72,7 +72,12 @@ public class OrderServiceImpl implements OrderService {
         Orders order = new Orders();
         BeanUtils.copyProperties(ordersSubmitDTO, order);
         order.setPhone(addressBook.getPhone());
-        order.setAddress(addressBook.getDetail());
+        StringBuilder address = new StringBuilder();
+        address.append(addressBook.getProvinceName())
+                .append(addressBook.getCityName())
+                .append(addressBook.getDistrictName())
+                .append(addressBook.getDetail());
+        order.setAddress(address.toString());
         order.setConsignee(addressBook.getConsignee());
         order.setNumber(String.valueOf(System.currentTimeMillis()));
         order.setUserId(userId);
