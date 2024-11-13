@@ -1,6 +1,8 @@
 package com.sky.controller.user;
 
+import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersSubmitDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
 import com.sky.vo.OrderPaymentVO;
@@ -67,5 +69,18 @@ public class OrderController {
         httpClient.execute(httpGet);
         orderService.paySuccess(ordersPaymentDTO.getOrderNumber());
         return Result.success(orderPaymentVO);
+    }
+
+    /**
+     * page query history orders
+     * @param ordersPageQueryDTO
+     * @return
+     */
+    @GetMapping("/historyOrders")
+    @ApiOperation("page query history orders")
+    public Result<PageResult> historyOrders(OrdersPageQueryDTO ordersPageQueryDTO) {
+        log.info("page query history orders: {}", ordersPageQueryDTO);
+        PageResult pageResult = orderService.pageQuery(ordersPageQueryDTO);
+        return Result.success(pageResult);
     }
 }

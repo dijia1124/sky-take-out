@@ -42,4 +42,21 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="pageQuery" resultType="com.sky.vo.OrderVO">
+        select o.*, u.name, a.phone, a.phone, a.province_name from orders o
+        left outer join user u on o.user_id = u.id
+        left outer join address_book a on o.address_book_id = a.id
+        <where>
+            <if test="status != null">
+                and o.status = #{status}
+            </if>
+            <if test="number != null">
+                and o.number like concat('%',#{number},'%')
+            </if>
+            <if test="phone != null">
+                and a.phone like concat('%',#{phone},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
