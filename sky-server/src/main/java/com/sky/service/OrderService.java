@@ -6,6 +6,7 @@ import com.sky.result.PageResult;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.dto.OrdersPaymentDTO;
+import com.sky.vo.OrderVO;
 
 public interface OrderService {
     /**
@@ -39,4 +40,11 @@ public interface OrderService {
      * @param ordersPageQueryDTO
      */
     PageResult conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    /**
+     * query order by its id
+     * @param orderId
+     * @return
+     */
+    OrderVO getById(Long orderId);
 }

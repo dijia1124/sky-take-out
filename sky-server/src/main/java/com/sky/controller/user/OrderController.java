@@ -10,6 +10,7 @@ import com.sky.service.OrderService;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.dto.OrdersPaymentDTO;
+import com.sky.vo.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -86,5 +87,18 @@ public class OrderController {
         ordersPageQueryDTO.setUserId(BaseContext.getCurrentId());
         PageResult pageResult = orderService.pageQuery(ordersPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * query order details
+     * @param orderId
+     * @return
+     */
+    @GetMapping("/orderDetail/{orderId}")
+    @ApiOperation("query order details")
+    public Result<OrderVO> orderDetail(@PathVariable Long orderId) {
+        log.info("query order details: {}", orderId);
+        OrderVO orderVO = orderService.getById(orderId);
+        return Result.success(orderVO);
     }
 }
