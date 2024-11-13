@@ -30,6 +30,13 @@ public interface OrderService {
 
     /**
      * page query order
+     * @param ordersPageQueryDTO
      */
     PageResult pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
+
+    /**
+     * condition query order
+     * @param ordersPageQueryDTO
+     */
+    PageResult conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
 }

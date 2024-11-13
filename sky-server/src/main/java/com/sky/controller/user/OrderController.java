@@ -1,7 +1,9 @@
 package com.sky.controller.user;
 
+import com.sky.context.BaseContext;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersSubmitDTO;
+import com.sky.mapper.OrderMapper;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
@@ -17,7 +19,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Closeable;
 
 
 @RestController("userOrderController")
@@ -28,6 +29,8 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderMapper orderMapper;
 
     /**
      * Submit order
@@ -79,7 +82,8 @@ public class OrderController {
     @GetMapping("/historyOrders")
     @ApiOperation("page query history orders")
     public Result<PageResult> historyOrders(OrdersPageQueryDTO ordersPageQueryDTO) {
-        log.info("page query history orders: {}", ordersPageQueryDTO);
+        log.info("query history orders: {}", ordersPageQueryDTO);
+        ordersPageQueryDTO.setUserId(BaseContext.getCurrentId());
         PageResult pageResult = orderService.pageQuery(ordersPageQueryDTO);
         return Result.success(pageResult);
     }
