@@ -57,6 +57,15 @@
             <if test="phone != null">
                 and a.phone like concat('%',#{phone},'%')
             </if>
+            <if test="beginTime != null">
+                and o.order_time &gt;= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and o.order_time &lt;= #{endTime}
+            </if>
+            <if test="userId != null">
+                and o.user_id = #{userId}
+            </if>
         </where>
     </select>
 </mapper>
