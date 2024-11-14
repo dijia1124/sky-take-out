@@ -1,12 +1,9 @@
 package com.sky.service;
 
-import com.sky.dto.OrdersConfirmDTO;
-import com.sky.dto.OrdersPageQueryDTO;
-import com.sky.dto.OrdersSubmitDTO;
+import com.sky.dto.*;
 import com.sky.result.PageResult;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
-import com.sky.dto.OrdersPaymentDTO;
 import com.sky.vo.OrderVO;
 
 import java.util.Map;
@@ -74,4 +71,10 @@ public interface OrderService {
      * @param ordersConfirmDTO
      */
     void adminConfirmOrder(OrdersConfirmDTO ordersConfirmDTO);
+
+    /**
+     * admin reject order
+     * @param ordersRejectionDTO
+     */
+    void adminRejectOrder(OrdersRejectionDTO ordersRejectionDTO);
 }

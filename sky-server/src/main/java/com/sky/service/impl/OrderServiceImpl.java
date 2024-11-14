@@ -4,9 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
-import com.sky.dto.OrdersConfirmDTO;
-import com.sky.dto.OrdersPageQueryDTO;
-import com.sky.dto.OrdersPaymentDTO;
+import com.sky.dto.*;
 import com.sky.entity.*;
 import com.sky.exception.AddressBookBusinessException;
 import com.sky.exception.OrderBusinessException;
@@ -18,13 +16,13 @@ import com.sky.mapper.UserMapper;
 import com.sky.result.PageResult;
 import com.sky.service.AddressBookService;
 import com.sky.service.OrderService;
-import com.sky.dto.OrdersSubmitDTO;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -320,5 +318,38 @@ public class OrderServiceImpl implements OrderService {
                 .status(Orders.CONFIRMED)
                 .build();
         orderMapper.update(order);
+    }
+
+    /**
+     * reject order
+     * @param ordersRejectionDTO
+     */
+    public void adminRejectOrder(OrdersRejectionDTO ordersRejectionDTO) {
+        // Get the order by its id
+        Orders orderDB = orderMapper.getById(ordersRejectionDTO.getId());
+        // Check if the order exists and status is to be confirmed
+        if (orderDB == null || !orderDB.getStatus().equals(Orders.TO_BE_CONFIRMED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_NOT_FOUND);
+        }
+        // Check if the payment is done
+        // if so, need refund
+        if (orderDB.getPayStatus().equals(Orders.PAID)) {
+            // todo: refund via third-party payment platform
+            //调用微信支付退款接口
+//            weChatPayUtil.refund(
+//                    ordersDB.getNumber(),
+//                    ordersDB.getNumber(),
+//                    new BigDecimal(0.01),
+//                    new BigDecimal(0.01));
+            orderDB.setPayStatus(Orders.REFUND);
+        }
+        // Update the order status
+        Orders newOrder= Orders.builder()
+                .id(orderDB.getId())
+                .status(Orders.CANCELLED)
+                .cancelReason(ordersRejectionDTO.getRejectionReason())
+                .cancelTime(LocalDateTime.now())
+                .build();
+        orderMapper.update(newOrder);
     }
 }
