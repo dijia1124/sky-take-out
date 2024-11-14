@@ -81,4 +81,16 @@ public class OrderController {
         orderService.adminCancelOrder(ordersCancelDTO);
         return Result.success();
     }
+
+    /**
+     * deliver order
+     * @param orderId
+     */
+    @PutMapping("/delivery/{orderId}")
+    @ApiOperation("deliver order")
+    public Result delivery(@PathVariable Long orderId) {
+        log.info("deliver order: {}", orderId);
+        orderService.deliverOrder(orderId);
+        return Result.success();
+    }
 }

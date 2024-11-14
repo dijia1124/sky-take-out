@@ -384,4 +384,23 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderMapper.update(newOrder);
     }
+
+    /**
+     * deliver order
+     * @param orderId
+     */
+    public void deliverOrder(Long orderId) {
+        // Get the order by its id
+        Orders orders = orderMapper.getById(orderId);
+        // Check if the order exists and status is confirmed
+        if (orders == null || !orders.getStatus().equals(Orders.CONFIRMED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+        // Update the order status
+        Orders newOrder= Orders.builder()
+                .id(orders.getId())
+                .status(Orders.DELIVERY_IN_PROGRESS)
+                .build();
+        orderMapper.update(newOrder);
+    }
 }
