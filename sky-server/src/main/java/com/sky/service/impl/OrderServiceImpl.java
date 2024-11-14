@@ -28,7 +28,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -294,5 +296,18 @@ public class OrderServiceImpl implements OrderService {
         orders.setCancelReason("User cancelled the order");
         orders.setCancelTime(LocalDateTime.now());
         orderMapper.update(orders);
+    }
+
+    /**
+     * order statistics
+     *
+     * @return
+     */
+    public Map<String, Integer> statistics() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("confirmed", orderMapper.countByStatus(Orders.CONFIRMED));
+        map.put("toBeConfirmed", orderMapper.countByStatus(Orders.TO_BE_CONFIRMED));
+        map.put("deliveryInProgress", orderMapper.countByStatus(Orders.DELIVERY_IN_PROGRESS));
+        return map;
     }
 }

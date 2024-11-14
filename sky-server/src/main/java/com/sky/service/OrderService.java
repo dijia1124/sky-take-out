@@ -8,6 +8,8 @@ import com.sky.vo.OrderSubmitVO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.vo.OrderVO;
 
+import java.util.Map;
+
 public interface OrderService {
     /**
      * Submit order
@@ -59,4 +61,10 @@ public interface OrderService {
      * @param orderId
      */
     void userCancelOrder(Long orderId);
+
+    /**
+     * order statistics
+     * @return
+     */
+    Map<String, Integer> statistics();
 }

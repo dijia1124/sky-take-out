@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController("adminOrderController")
 @RequestMapping("/admin/order")
 @Slf4j
@@ -33,5 +35,16 @@ public class OrderController {
         log.info("Order condition search: {}", ordersPageQueryDTO);
         PageResult pageResult = orderService.conditionSearch(ordersPageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * order statistics
+     * @return
+     */
+    @GetMapping("/statistics")
+    @ApiOperation("order statistics")
+    public Result<Map<String, Integer>> statistics() {
+        // return data with integers: confirmed, deliveryInProgress, toBeConfirmed
+        return Result.success(orderService.statistics());
     }
 }
