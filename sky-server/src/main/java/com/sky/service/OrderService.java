@@ -77,4 +77,10 @@ public interface OrderService {
      * @param ordersRejectionDTO
      */
     void adminRejectOrder(OrdersRejectionDTO ordersRejectionDTO);
+
+    /**
+     * admin cancel order
+     * @param ordersCancelDTO
+     */
+    void adminCancelOrder(OrdersCancelDTO ordersCancelDTO);
 }

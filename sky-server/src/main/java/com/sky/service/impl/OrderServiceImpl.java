@@ -352,4 +352,36 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderMapper.update(newOrder);
     }
+
+    /**
+     * cancel order
+     * @param OrdersCancelDTO
+     */
+    public void adminCancelOrder(OrdersCancelDTO ordersCancelDTO) {
+        // cancel for confirmed orders
+        Orders orderDB = orderMapper.getById(ordersCancelDTO.getId());
+        if (orderDB == null || !orderDB.getStatus().equals(Orders.CONFIRMED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_NOT_FOUND);
+        }
+        // Check if the payment is done
+        // if so, need refund
+        if (orderDB.getPayStatus().equals(Orders.PAID)) {
+            // todo: refund via third-party payment platform
+            //调用微信支付退款接口
+//            weChatPayUtil.refund(
+//                    ordersDB.getNumber(),
+//                    ordersDB.getNumber(),
+//                    new BigDecimal(0.01),
+//                    new BigDecimal(0.01));
+            orderDB.setPayStatus(Orders.REFUND);
+        }
+        // Update the order status
+        Orders newOrder= Orders.builder()
+                .id(orderDB.getId())
+                .status(Orders.CANCELLED)
+                .cancelReason(ordersCancelDTO.getCancelReason())
+                .cancelTime(LocalDateTime.now())
+                .build();
+        orderMapper.update(newOrder);
+    }
 }
