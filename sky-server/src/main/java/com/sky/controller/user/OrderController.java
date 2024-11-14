@@ -101,4 +101,17 @@ public class OrderController {
         OrderVO orderVO = orderService.getById(orderId);
         return Result.success(orderVO);
     }
+
+    /**
+     * repeat order
+     * @param orderId
+     * @return
+     */
+    @PostMapping("/repetition/{orderId}")
+    @ApiOperation("repeat order")
+    public Result repetition(@PathVariable Long orderId) {
+        log.info("repeat order: {}", orderId);
+        orderService.repeatOrder(orderId);
+        return Result.success();
+    }
 }

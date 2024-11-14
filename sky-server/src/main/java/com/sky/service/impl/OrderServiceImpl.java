@@ -228,4 +228,31 @@ public class OrderServiceImpl implements OrderService {
         orderVO.setOrderDetailList(orderDetailList);
         return orderVO;
     }
+
+    /**
+     * repeat order, filling up the shopping cart with the same items
+     *
+     * @param orderId
+     */
+    public void repeatOrder(Long orderId) {
+        Long userId = BaseContext.getCurrentId();
+        // get the original order by its id
+        Orders orders = orderMapper.getById(orderId);
+        // get the original order details by its id
+        List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(orderId);
+        // construct a new list of shopping cart items
+        List<ShoppingCart> shoppingCartList = new ArrayList<>();
+        // fill up the shopping cart with the same items
+        for (OrderDetail orderDetail : orderDetailList) {
+            // todo: use stream to insert shopping cart
+            ShoppingCart shoppingCart = new ShoppingCart();
+            BeanUtils.copyProperties(orderDetail, shoppingCart);
+            shoppingCart.setUserId(userId);
+            shoppingCart.setCreateTime(LocalDateTime.now());
+            shoppingCartList.add(shoppingCart);
+        }
+
+        // insert new order into database
+        shoppingCartMapper.insertBatch(shoppingCartList);
+    }
 }

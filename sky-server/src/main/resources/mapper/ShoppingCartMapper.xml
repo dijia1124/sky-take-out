@@ -37,4 +37,12 @@
             </if>
         </where>
     </delete>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into shopping_cart (user_id, dish_id, setmeal_id, dish_flavor, create_time, name, image, number, amount)
+        values
+        <foreach collection="list" item="item" separator="," >
+            (#{item.userId}, #{item.dishId}, #{item.setmealId}, #{item.dishFlavor}, #{item.createTime}, #{item.name}, #{item.image}, #{item.number}, #{item.amount})
+        </foreach>
+    </insert>
 </mapper>

@@ -47,4 +47,10 @@ public interface OrderService {
      * @return
      */
     OrderVO getById(Long orderId);
+
+    /**
+     * repeat order
+     * @param orderId
+     */
+    void repeatOrder(Long orderId);
 }
