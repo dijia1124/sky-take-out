@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
+import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.entity.*;
@@ -27,10 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -309,5 +307,18 @@ public class OrderServiceImpl implements OrderService {
         map.put("toBeConfirmed", orderMapper.countByStatus(Orders.TO_BE_CONFIRMED));
         map.put("deliveryInProgress", orderMapper.countByStatus(Orders.DELIVERY_IN_PROGRESS));
         return map;
+    }
+
+    /**
+     * confirm order
+     *
+     * @param ordersConfirmDTO
+     */
+    public void adminConfirmOrder(OrdersConfirmDTO ordersConfirmDTO) {
+        Orders order = Orders.builder()
+                .id(ordersConfirmDTO.getId())
+                .status(Orders.CONFIRMED)
+                .build();
+        orderMapper.update(order);
     }
 }

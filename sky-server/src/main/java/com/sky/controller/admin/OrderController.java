@@ -1,5 +1,6 @@
 package com.sky.controller.admin;
 
+import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
@@ -8,9 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -46,5 +45,16 @@ public class OrderController {
     public Result<Map<String, Integer>> statistics() {
         // return data with integers: confirmed, deliveryInProgress, toBeConfirmed
         return Result.success(orderService.statistics());
+    }
+
+    /**
+     * confirm order
+     * @param ordersConfirmDTO
+     */
+    @PutMapping("/confirm")
+    @ApiOperation("confirm order")
+    public Result confirm(@RequestBody OrdersConfirmDTO ordersConfirmDTO) {
+        orderService.adminConfirmOrder(ordersConfirmDTO);
+        return Result.success();
     }
 }
