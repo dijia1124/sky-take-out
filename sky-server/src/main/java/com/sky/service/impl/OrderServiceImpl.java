@@ -403,4 +403,24 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderMapper.update(newOrder);
     }
+
+    /**
+     * complete order
+     * @param orderId
+     */
+    public void completeOrder(Long orderId) {
+        // Get the order by its id
+        Orders orders = orderMapper.getById(orderId);
+        // Check if the order exists and status is delivery in progress
+        if (orders == null || !orders.getStatus().equals(Orders.DELIVERY_IN_PROGRESS)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+        // Update the order status
+        Orders newOrder = Orders.builder()
+                .id(orders.getId())
+                .status(Orders.COMPLETED)
+                .deliveryTime(LocalDateTime.now())
+                .build();
+        orderMapper.update(newOrder);
+    }
 }

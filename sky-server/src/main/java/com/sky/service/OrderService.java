@@ -89,4 +89,10 @@ public interface OrderService {
      * @param orderId
      */
     void deliverOrder(Long orderId);
+
+    /**
+     * complete order
+     * @param orderId
+     */
+    void completeOrder(Long orderId);
 }
