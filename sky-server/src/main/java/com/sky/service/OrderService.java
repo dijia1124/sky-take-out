@@ -53,4 +53,10 @@ public interface OrderService {
      * @param orderId
      */
     void repeatOrder(Long orderId);
+
+    /**
+     * cancel order
+     * @param orderId
+     */
+    void userCancelOrder(Long orderId);
 }

@@ -114,4 +114,17 @@ public class OrderController {
         orderService.repeatOrder(orderId);
         return Result.success();
     }
+
+    /**
+     * cancel order
+     * @param orderId
+     * @return
+     */
+    @PutMapping("/cancel/{orderId}")
+    @ApiOperation("cancel order")
+    public Result cancel(@PathVariable Long orderId) {
+        log.info("cancel order: {}", orderId);
+        orderService.userCancelOrder(orderId);
+        return Result.success();
+    }
 }

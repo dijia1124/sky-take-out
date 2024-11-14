@@ -8,6 +8,7 @@ import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.entity.*;
 import com.sky.exception.AddressBookBusinessException;
+import com.sky.exception.OrderBusinessException;
 import com.sky.exception.ShoppingCartBusinessException;
 import com.sky.mapper.OrderDetailMapper;
 import com.sky.mapper.OrderMapper;
@@ -254,5 +255,44 @@ public class OrderServiceImpl implements OrderService {
 
         // insert new order into database
         shoppingCartMapper.insertBatch(shoppingCartList);
+    }
+
+    /**
+     * cancel order
+     *
+     * @param orderId
+     */
+    public void userCancelOrder(Long orderId) {
+        // Get the order by its id
+        Orders orders = orderMapper.getById(orderId);
+        // Check if the order exists
+        if (orders == null) {
+            throw new OrderBusinessException(MessageConstant.ORDER_NOT_FOUND);
+        }
+
+        // Check if the order is in the right status
+        // Can only be cancelled if the merchant has not confirmed the order
+        if (orders.getStatus() > Orders.TO_BE_CONFIRMED) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        // Check if the order is to be confirmed
+        // if so, need refund
+        if (orders.getStatus().equals(Orders.TO_BE_CONFIRMED)) {
+            // todo: refund via third-party payment platform
+            //调用微信支付退款接口
+//            weChatPayUtil.refund(
+//                    ordersDB.getNumber(),
+//                    ordersDB.getNumber(),
+//                    new BigDecimal(0.01),
+//                    new BigDecimal(0.01));
+            orders.setPayStatus(Orders.REFUND);
+        }
+
+        // Update the order status
+        orders.setStatus(Orders.CANCELLED);
+        orders.setCancelReason("User cancelled the order");
+        orders.setCancelTime(LocalDateTime.now());
+        orderMapper.update(orders);
     }
 }
