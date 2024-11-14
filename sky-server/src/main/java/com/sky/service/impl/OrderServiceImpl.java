@@ -360,8 +360,8 @@ public class OrderServiceImpl implements OrderService {
     public void adminCancelOrder(OrdersCancelDTO ordersCancelDTO) {
         // cancel for confirmed orders
         Orders orderDB = orderMapper.getById(ordersCancelDTO.getId());
-        if (orderDB == null || !orderDB.getStatus().equals(Orders.CONFIRMED)) {
-            throw new OrderBusinessException(MessageConstant.ORDER_NOT_FOUND);
+        if (orderDB == null || orderDB.getStatus().equals(Orders.CANCELLED) || orderDB.getStatus().equals(Orders.COMPLETED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
         }
         // Check if the payment is done
         // if so, need refund
