@@ -105,4 +105,17 @@ public class OrderController {
         orderService.completeOrder(orderId);
         return Result.success();
     }
+
+    /**
+     * query order details
+     * @param orderId
+     * @return
+     */
+    @GetMapping("/details/{orderId}")
+    @ApiOperation("query order details")
+    public Result orderDetail(@PathVariable Long orderId) {
+        log.info("query order details: {}", orderId);
+        return Result.success(orderService.getById(orderId));
+    }
+
 }
