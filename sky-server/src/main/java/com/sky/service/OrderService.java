@@ -103,4 +103,10 @@ public interface OrderService {
      * @param status
      */
     PageResult pageQuery4User(int page, int pageSize, Integer status);
+
+    /**
+     * remind merchant for order
+     * @param id
+     */
+    void remindMerchant(Long id);
 }

@@ -1,6 +1,6 @@
 package com.sky.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
@@ -175,7 +175,7 @@ public class OrderServiceImpl implements OrderService {
         map.put("content", "Order number: " + outTradeNo);
 
         // send message to merchant via websocket
-        webSocketServer.sendToAllClient(JSONObject.toJSONString(map));
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
     }
 
     /**
@@ -470,5 +470,19 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return new PageResult(pageOrder.getTotal(), list);
+    }
+
+    /**
+     * remind merchant for order
+     * @param id
+     */
+    public void remindMerchant(Long id) {
+        // send message to merchant
+        Map map = new HashMap();
+        map.put("type", 2);
+        map.put("orderId", id);
+        map.put("content", "Order number: " + id);
+        // send message to merchant via websocket
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
     }
 }

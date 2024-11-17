@@ -127,4 +127,16 @@ public class OrderController {
         orderService.userCancelOrder(orderId);
         return Result.success();
     }
+
+    /**
+     * remind merchant for order
+     * @param id
+     */
+    @GetMapping("/reminder/{id}")
+    @ApiOperation("remind merchant for order")
+    public Result remind(@PathVariable Long id) {
+        log.info("remind merchant for order: {}", id);
+        orderService.remindMerchant(id);
+        return Result.success();
+    }
 }
