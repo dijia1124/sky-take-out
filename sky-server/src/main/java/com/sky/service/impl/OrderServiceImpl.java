@@ -423,4 +423,38 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         orderMapper.update(newOrder);
     }
+
+    /**
+     * query for users' historical orders
+     * @param page
+     * @param pageSize
+     * @param status
+     * @return
+     */
+    public PageResult pageQuery4User(int page, int pageSize, Integer status) {
+        PageHelper.startPage(page, pageSize);
+
+        OrdersPageQueryDTO ordersPageQueryDTO = new OrdersPageQueryDTO();
+        ordersPageQueryDTO.setUserId(BaseContext.getCurrentId());
+        ordersPageQueryDTO.setStatus(status);
+
+        Page<Orders> pageOrder = orderMapper.pageQuery(ordersPageQueryDTO);
+
+        List<OrderVO> list = new ArrayList<>();
+
+        if (pageOrder != null && pageOrder.getTotal() > 0) {
+            for (Orders orders : pageOrder) {
+                Long orderId = orders.getId();
+
+                // 查询订单明细
+                List<OrderDetail> orderDetails = orderDetailMapper.getByOrderId(orderId);
+
+                OrderVO orderVO = new OrderVO();
+                BeanUtils.copyProperties(orders, orderVO);
+                orderVO.setOrderDetailList(orderDetails);
+                list.add(orderVO);
+            }
+        }
+        return new PageResult(pageOrder.getTotal(), list);
+    }
 }

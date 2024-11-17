@@ -95,4 +95,12 @@ public interface OrderService {
      * @param orderId
      */
     void completeOrder(Long orderId);
+
+    /**
+     * query for users' historical orders
+     * @param page
+     * @param pageSize
+     * @param status
+     */
+    PageResult pageQuery4User(int page, int pageSize, Integer status);
 }

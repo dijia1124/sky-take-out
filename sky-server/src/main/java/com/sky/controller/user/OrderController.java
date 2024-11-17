@@ -1,7 +1,5 @@
 package com.sky.controller.user;
 
-import com.sky.context.BaseContext;
-import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.mapper.OrderMapper;
 import com.sky.result.PageResult;
@@ -32,6 +30,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private com.sky.mapper.OrderDetailMapper orderDetailMapper;
 
     /**
      * Submit order
@@ -77,15 +77,15 @@ public class OrderController {
 
     /**
      * page query history orders
-     * @param ordersPageQueryDTO
+     * @param page
+     * @param pageSize
+     * @param status
      * @return
      */
     @GetMapping("/historyOrders")
     @ApiOperation("page query history orders")
-    public Result<PageResult> historyOrders(OrdersPageQueryDTO ordersPageQueryDTO) {
-        log.info("query history orders: {}", ordersPageQueryDTO);
-        ordersPageQueryDTO.setUserId(BaseContext.getCurrentId());
-        PageResult pageResult = orderService.pageQuery(ordersPageQueryDTO);
+    public Result<PageResult> historyOrders(int page, int pageSize, Integer status) {
+        PageResult pageResult = orderService.pageQuery4User(page,pageSize,status);
         return Result.success(pageResult);
     }
 
