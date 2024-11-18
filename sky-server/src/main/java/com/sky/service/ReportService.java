@@ -1,10 +1,7 @@
 package com.sky.service;
 
 import com.sky.entity.User;
-import com.sky.vo.OrderOverViewVO;
-import com.sky.vo.OrderReportVO;
-import com.sky.vo.TurnoverReportVO;
-import com.sky.vo.UserReportVO;
+import com.sky.vo.*;
 
 import java.time.LocalDate;
 
@@ -29,4 +26,11 @@ public interface ReportService {
      * @param end
      */
     OrderReportVO getOrderStatistics(LocalDate begin, LocalDate end);
+
+    /**
+     * Get top 10 sales statistics
+     * @param begin
+     * @param end
+     */
+    SalesTop10ReportVO getSalesTop10(LocalDate begin, LocalDate end);
 }
