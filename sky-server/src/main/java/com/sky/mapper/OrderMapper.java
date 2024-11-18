@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -68,4 +69,11 @@ public interface OrderMapper {
      * @return
      */
     Double sumByMap(Object map);
+
+    /**
+     * count orders based on time range and status
+     * @param map
+     * @return
+     */
+    Integer countByMap(Object map);
 }
