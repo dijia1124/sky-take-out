@@ -61,4 +61,11 @@ public interface OrderMapper {
      */
     @Select("select * from orders where status = #{status} and order_time < #{orderTime}")
     List<Orders> listByStatusAndOrderTime(Integer status, LocalDateTime orderTime);
+
+    /**
+     * sum by map
+     * @param map
+     * @return
+     */
+    Double sumByMap(Object map);
 }
