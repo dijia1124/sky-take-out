@@ -4,6 +4,7 @@ package com.sky.controller.admin;
 import com.sky.result.Result;
 import com.sky.service.ReportService;
 import com.sky.vo.TurnoverReportVO;
+import com.sky.vo.UserReportVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,20 @@ public class ReportController {
         log.info("Turnover statistics: begin={}, end={}", begin, end);
         TurnoverReportVO reportVO = reportService.getTurnover(begin, end);
         log.info("Turnover statistics result: {}", reportVO);
+        return Result.success(reportVO);
+    }
+
+    /**
+     * statistics of new users and total new users
+     * @param begin
+     * @param end
+     * @return
+     */
+    @GetMapping("/userStatistics")
+    @ApiOperation("User statistics")
+    public Result<UserReportVO> userStatistics(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+                                               @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
+        UserReportVO reportVO = reportService.getUserStatistics(begin, end);
         return Result.success(reportVO);
     }
 
